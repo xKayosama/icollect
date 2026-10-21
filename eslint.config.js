@@ -22,11 +22,10 @@ export default defineConfig([
   {
     files: ['src/components/ui/**/*.tsx'],
     rules: {
-      // shadcn exports variants alongside components for reuse by consumers.
-      'react-refresh/only-export-components': [
-        'error',
-        { allowConstantExport: true, allowExportNames: ['buttonVariants'] },
-      ],
+      'react-refresh/only-export-components': ['error', {
+        allowConstantExport: true,
+        allowExportNames: ['buttonVariants'],
+      }],
     },
   },
 ])

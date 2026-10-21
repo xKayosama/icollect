@@ -75,6 +75,26 @@ No additional dependencies are required.
 
 # React + TypeScript + Vite
 
+## iCollect navigation shell
+
+`src/components/layout/AppLayout.tsx` wraps existing page content with a desktop
+sidebar and a mobile Base UI dialog drawer. Navigation labels, icons, and IDs live
+in `src/constants/navigation.ts`. Hash links select the active item and header;
+feature pages are not implemented yet. No router or new dependency is added.
+
+At widths of 1024px and above, use the sidebar footer control to collapse or
+expand the rail. Below 1024px, use the header menu button. Verify Tab navigation,
+Escape dismissal, backdrop dismissal, and focus returning to the menu button.
+Selecting a drawer link closes it. Resizing to desktop also closes it.
+
+Pass a `user` object to `Sidebar` to display real profile details; the default
+is a generic personal workspace profile. The existing counter and starter links
+remain available in the main content.
+
+The existing generated button and `cn` helper are located under `src/` to match
+the configured alias. TypeScript's deprecated `baseUrl` was removed while keeping
+the relative alias mapping. ESLint permits the generated `buttonVariants` export.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
