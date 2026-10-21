@@ -118,6 +118,10 @@
 }
 
 #root {
+  min-height: 100svh;
+}
+
+.starter-content {
   width: 1126px;
   max-width: 100%;
   margin: 0 auto;
@@ -264,4 +268,26 @@ code {
   html {
     @apply font-sans;
   }
+}
+
+
+/* Scoped application palette leaves the existing starter and Nova tokens intact. */
+.app-shell {
+  --background: #f8faff;
+  --primary: #1769f5;
+  --sidebar: #fff;
+  --sidebar-foreground: #102a56;
+  --sidebar-accent: #edf4ff;
+  --sidebar-border: #dce5f2;
+  font-family: "Geist Variable", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: left;
+  color-scheme: light;
+}
+
+.starter-content {
+  background: var(--bg);
+  overflow: hidden;
+  border-radius: 12px;
 }
