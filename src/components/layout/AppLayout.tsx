@@ -1,11 +1,14 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { Dialog } from '@base-ui/react/dialog'
-import { Menu, X } from 'lucide-react'
+import { Menu, Moon, Sun, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { getNavigationId, navigationItems } from '@/constants/navigation'
 
+import { useTheme } from '@/hooks/use-theme'
+
 export function AppLayout({ children }: { children: ReactNode }) {
+  const { theme, toggleTheme } = useTheme()
   const [collapsed, setCollapsed] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeId, setActiveId] = useState(() => getNavigationId(window.location.hash))
@@ -28,12 +31,12 @@ export function AppLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="app-shell flex min-h-svh bg-background text-sidebar-foreground">
-      <a href="#main-content" className="sr-only z-50 rounded-lg bg-white p-3 focus:not-sr-only focus:fixed focus:top-3 focus:left-3">Skip to content</a>
+      <a href="#main-content" className="sr-only z-50 rounded-lg bg-sidebar p-3 focus:not-sr-only focus:fixed focus:top-3 focus:left-3">Skip to content</a>
       <aside aria-label="Sidebar" style={{ width: collapsed ? 88 : 264 }} className="sticky top-0 hidden h-svh shrink-0 border-r border-sidebar-border bg-sidebar lg:block">
         <Sidebar activeId={activeId} collapsed={collapsed} onToggle={() => setCollapsed((value) => !value)} />
       </aside>
       <div className="min-w-0 flex-1">
-        <header className="flex h-20 items-center gap-4 border-b border-sidebar-border bg-white px-5 sm:px-8">
+        <header className="flex h-20 items-center gap-4 border-b border-sidebar-border bg-sidebar px-5 sm:px-8">
           <Dialog.Root open={mobileOpen} onOpenChange={setMobileOpen}>
             <Dialog.Trigger render={<Button variant="outline" size="icon" className="lg:hidden" aria-label="Open navigation" />}><Menu aria-hidden="true" /></Dialog.Trigger>
             <Dialog.Portal>
@@ -46,7 +49,10 @@ export function AppLayout({ children }: { children: ReactNode }) {
               </Dialog.Popup>
             </Dialog.Portal>
           </Dialog.Root>
-          <div><p className="text-xs text-slate-500">Your shared expenses, organized</p><p className="text-lg font-semibold">{navigationItems.find((item) => item.id === activeId)?.label}</p></div>
+          <div><p className="text-xs text-muted-foreground">Your shared expenses, organized</p><p className="text-lg font-semibold">{navigationItems.find((item) => item.id === activeId)?.label}</p></div>
+          <Button variant="outline" size="icon" className="ml-auto" onClick={toggleTheme} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
+            {theme === 'dark' ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
+          </Button>
         </header>
         <main id="main-content" tabIndex={-1} className="min-w-0 p-4 outline-none sm:p-8">{children}</main>
       </div>
